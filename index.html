@@ -13,140 +13,73 @@
 
   <style>
     :root {
-      --bg: #0f0a1f;
-      --surface: #1c1438;
-      --surface-2: #241a45;
-      --border: rgba(167, 139, 250, 0.18);
-      --border-hover: rgba(167, 139, 250, 0.5);
+      --bg: #0d1117;
+      --bg-2: #161b22;
+      --surface: rgba(28, 33, 40, 0.85);
+      --surface-2: rgba(34, 39, 46, 0.9);
+      --border: #30363d;
+      --border-hover: #484f58;
 
-      --violet-200: #ddd6fe;
-      --violet-300: #c4b5fd;
-      --violet-400: #a78bfa;
-      --violet-500: #8b5cf6;
-      --violet-600: #7c3aed;
-      --fuchsia: #d946ef;
-      --amber: #fbbf24;
+      --accent: #58a6ff;
+      --accent-dim: #388bfd;
+      --accent-soft: rgba(88, 166, 255, 0.1);
+      --accent2: #bc8cff;
+      --accent2-soft: rgba(188, 140, 255, 0.1);
+      --success: #3fb950;
+      --amber: #d29922;
 
-      --text: #f5f3ff;
-      --text-muted: #a89bc4;
-      --text-dim: #786a96;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --text-dim: #6e7681;
 
       --font-sans: 'Inter', -apple-system, sans-serif;
       --font-display: 'Sora', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
 
-      --radius: 14px;
-      --radius-sm: 10px;
-      --transition: all 0.25s ease;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: all 0.2s ease;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
-    /* ─── Custom Cursor (Logic Gate) ─── */
-    body, a, button, .card, .tag, .skill-block, .social-btn, .modal-close, .timeline-item, .project-card {
-      cursor: none !important;
-    }
-
-    .cursor-gate {
-      position: fixed;
-      top: 0; left: 0;
-      width: 34px; height: 34px;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, opacity 0.2s ease;
-      filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.9));
-    }
-    .cursor-gate svg {
-      width: 100%; height: 100%;
-      display: block;
-    }
-    .cursor-gate svg path,
-    .cursor-gate svg line,
-    .cursor-gate svg circle,
-    .cursor-gate svg polygon {
-      stroke: var(--violet-300);
-      stroke-width: 1.8;
-      fill: none;
-      transition: stroke 0.2s ease;
-    }
-    .cursor-gate.hover svg path,
-    .cursor-gate.hover svg line,
-    .cursor-gate.hover svg circle,
-    .cursor-gate.hover svg polygon {
-      stroke: var(--fuchsia);
-    }
-    .cursor-gate.hover {
-      transform: translate(-50%, -50%) scale(1.35) rotate(6deg);
-    }
-
-    /* Small trailing dot for accuracy */
-    .cursor-dot {
-      position: fixed;
-      top: 0; left: 0;
-      width: 5px; height: 5px;
-      background: var(--fuchsia);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 8px rgba(217, 70, 239, 0.9);
-    }
-
-    @media (pointer: coarse) {
-      body, a, button, .card, .tag, .skill-block, .social-btn, .modal-close, .timeline-item, .project-card {
-        cursor: auto !important;
-      }
-      .cursor-gate, .cursor-dot { display: none; }
-    }
-
-    /* ─── Body with Electronics Circuit Background ─── */
+    /* ─── Body: Circuit board image background with dark overlay ─── */
     body {
       background-color: var(--bg);
-      background-image:
-        /* Base radial gradients */
-        radial-gradient(circle at 15% 10%, rgba(139, 92, 246, 0.14), transparent 45%),
-        radial-gradient(circle at 85% 80%, rgba(217, 70, 239, 0.09), transparent 45%),
-        /* Circuit grid lines */
-        linear-gradient(rgba(167, 139, 250, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(167, 139, 250, 0.055) 1px, transparent 1px),
-        /* Fine dot pattern (PCB vias) */
-        radial-gradient(rgba(167, 139, 250, 0.18) 1.2px, transparent 1.2px);
-      background-size:
-        100% 100%,
-        100% 100%,
-        42px 42px,
-        42px 42px,
-        42px 42px;
-      background-position:
-        0 0,
-        0 0,
-        0 0,
-        0 0,
-        0 0;
-      background-attachment: fixed;
       color: var(--text);
       font-family: var(--font-sans);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* Decorative circuit overlay using SVG pattern */
-    .circuit-bg {
+    /* Fixed background image layer */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      filter: brightness(0.55) saturate(1.1);
+    }
+
+    /* Dark overlay for readability */
+    body::after {
+      content: '';
       position: fixed;
       inset: 0;
       z-index: -1;
+      background:
+        linear-gradient(180deg, rgba(13, 17, 23, 0.75) 0%, rgba(13, 17, 23, 0.88) 50%, rgba(13, 17, 23, 0.95) 100%),
+        radial-gradient(ellipse at top left, rgba(88, 166, 255, 0.08), transparent 55%),
+        radial-gradient(ellipse at bottom right, rgba(188, 140, 255, 0.06), transparent 50%);
       pointer-events: none;
-      opacity: 0.55;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'><g fill='none' stroke='%23a78bfa' stroke-width='1' opacity='0.35'><path d='M 20 20 H 100 V 60 H 160 V 30 H 220'/><path d='M 40 120 H 90 V 180 H 180 V 140 H 240'/><path d='M 20 220 H 80 V 240 H 200 V 200 H 240'/><circle cx='100' cy='60' r='3'/><circle cx='160' cy='30' r='3'/><circle cx='90' cy='180' r='3'/><circle cx='180' cy='140' r='3'/><circle cx='80' cy='240' r='3'/><circle cx='200' cy='200' r='3'/><rect x='112' y='52' width='18' height='16' rx='2'/><rect x='100' y='172' width='18' height='16' rx='2'/></g></svg>");
-      background-repeat: repeat;
-      animation: circuitMove 60s linear infinite;
-    }
-    @keyframes circuitMove {
-      from { background-position: 0 0; }
-      to { background-position: 260px 260px; }
     }
 
     /* ─── Navigation ─── */
@@ -154,7 +87,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(15, 10, 31, 0.85);
+      background: rgba(13, 17, 23, 0.8);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -180,8 +113,8 @@
     .logo-dot {
       width: 10px; height: 10px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--violet-400), var(--fuchsia));
-      box-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 12px rgba(88, 166, 255, 0.6);
     }
     .nav-links {
       display: flex;
@@ -195,7 +128,7 @@
       font-weight: 500;
       transition: var(--transition);
     }
-    .nav-links a:hover { color: var(--violet-300); }
+    .nav-links a:hover { color: var(--accent); }
 
     /* ─── Layout ─── */
     .container {
@@ -205,7 +138,7 @@
     }
     section {
       padding: 5rem 0;
-      border-bottom: 1px solid rgba(167, 139, 250, 0.06);
+      border-bottom: 1px solid rgba(48, 54, 61, 0.4);
     }
 
     /* ─── Section Header ─── */
@@ -216,12 +149,12 @@
       gap: 1.25rem;
       margin-bottom: 2.75rem;
       padding-bottom: 1rem;
-      border-bottom: 1px dashed rgba(167, 139, 250, 0.15);
+      border-bottom: 1px solid var(--border);
     }
     .section-num {
       font-family: var(--font-mono);
       font-size: 0.78rem;
-      color: var(--violet-400);
+      color: var(--accent);
       letter-spacing: 0.1em;
     }
     .section-head h2 {
@@ -251,14 +184,15 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(139, 92, 246, 0.1);
-      border: 1px solid var(--border);
-      color: var(--violet-300);
+      background: rgba(88, 166, 255, 0.12);
+      border: 1px solid rgba(88, 166, 255, 0.3);
+      color: var(--accent);
       padding: 0.4rem 0.9rem;
       border-radius: 999px;
       font-family: var(--font-mono);
       font-size: 0.72rem;
       margin-bottom: 1.4rem;
+      backdrop-filter: blur(8px);
     }
     .hero h1 {
       font-family: var(--font-display);
@@ -267,11 +201,13 @@
       line-height: 1.12;
       letter-spacing: -0.03em;
       margin-bottom: 1.25rem;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
     }
     .hero h1 .accent {
-      background: linear-gradient(120deg, var(--violet-400) 0%, var(--fuchsia) 100%);
+      background: linear-gradient(120deg, var(--accent) 0%, var(--accent2) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .hero p {
       font-size: 1rem;
@@ -294,27 +230,28 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      cursor: none;
       border: 1px solid transparent;
       transition: var(--transition);
       font-family: var(--font-sans);
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--violet-600), var(--violet-500));
-      color: #fff;
-      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+      background: var(--accent);
+      color: #0d1117;
+      box-shadow: 0 4px 16px rgba(88, 166, 255, 0.4);
     }
     .btn-primary:hover {
+      background: var(--accent-dim);
       transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(124, 58, 237, 0.5);
+      box-shadow: 0 8px 24px rgba(88, 166, 255, 0.5);
     }
     .btn-ghost {
-      background: rgba(167, 139, 250, 0.07);
+      background: rgba(28, 33, 40, 0.7);
+      backdrop-filter: blur(8px);
       border-color: var(--border);
-      color: var(--violet-200);
+      color: var(--text);
     }
     .btn-ghost:hover {
-      background: rgba(167, 139, 250, 0.15);
+      background: rgba(34, 39, 46, 0.9);
       border-color: var(--border-hover);
       transform: translateY(-2px);
     }
@@ -326,15 +263,15 @@
       height: 250px;
       border-radius: 50%;
       padding: 4px;
-      background: conic-gradient(from 200deg, var(--violet-500), var(--fuchsia), var(--violet-500));
-      box-shadow: 0 20px 50px rgba(124, 58, 237, 0.3);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
     .photo-frame::before {
       content: '';
       position: absolute;
       inset: -8px;
       border-radius: 50%;
-      border: 1px dashed rgba(167, 139, 250, 0.28);
+      border: 1px dashed rgba(88, 166, 255, 0.4);
       animation: spin 30s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -359,17 +296,19 @@
       top: 8px;
       bottom: 8px;
       width: 1px;
-      background: linear-gradient(to bottom, var(--violet-500), transparent);
+      background: linear-gradient(to bottom, var(--accent), transparent);
     }
     .timeline-item {
       position: relative;
       padding: 1.25rem 1.5rem;
       margin-bottom: 1.2rem;
       background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       transition: var(--transition);
-      cursor: none;
+      cursor: pointer;
     }
     .timeline-item::before {
       content: '';
@@ -379,9 +318,9 @@
       width: 15px;
       height: 15px;
       border-radius: 50%;
-      background: var(--surface);
-      border: 2px solid var(--violet-500);
-      box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px rgba(88, 166, 255, 0.6);
     }
     .timeline-item:hover {
       border-color: var(--border-hover);
@@ -405,17 +344,17 @@
     .timeline-item .item-date {
       font-family: var(--font-mono);
       font-size: 0.74rem;
-      color: var(--violet-400);
+      color: var(--accent);
       white-space: nowrap;
       padding: 0.2rem 0.6rem;
-      background: rgba(139, 92, 246, 0.08);
-      border: 1px solid var(--border);
+      background: var(--accent-soft);
+      border: 1px solid rgba(88, 166, 255, 0.2);
       border-radius: 6px;
     }
     .timeline-item .item-sub {
       font-family: var(--font-mono);
       font-size: 0.78rem;
-      color: var(--violet-300);
+      color: var(--accent2);
       margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
@@ -433,25 +372,29 @@
       gap: 0.4rem;
     }
     .tag {
-      background: rgba(139, 92, 246, 0.09);
+      background: rgba(34, 39, 46, 0.8);
       border: 1px solid var(--border);
-      color: var(--violet-200);
+      color: var(--text-muted);
       padding: 0.28rem 0.65rem;
-      border-radius: 7px;
+      border-radius: 6px;
       font-size: 0.72rem;
       font-family: var(--font-mono);
       transition: var(--transition);
-      cursor: none;
+      cursor: pointer;
+    }
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
     .tag-highlight {
-      background: rgba(217, 70, 239, 0.14) !important;
-      border-color: rgba(217, 70, 239, 0.45) !important;
-      color: #f5b8ff !important;
+      background: var(--accent-soft) !important;
+      border-color: rgba(88, 166, 255, 0.4) !important;
+      color: var(--accent) !important;
     }
     .tag-ongoing {
-      background: rgba(251, 191, 36, 0.12) !important;
-      border-color: rgba(251, 191, 36, 0.4) !important;
-      color: #fcd34d !important;
+      background: rgba(210, 153, 34, 0.12) !important;
+      border-color: rgba(210, 153, 34, 0.4) !important;
+      color: var(--amber) !important;
     }
 
     /* ─── Projects ─── */
@@ -465,11 +408,13 @@
     }
     .project-card {
       background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.75rem;
       transition: var(--transition);
-      cursor: none;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
@@ -482,16 +427,16 @@
       top: 0; left: 0;
       width: 100%;
       height: 3px;
-      background: linear-gradient(90deg, var(--violet-500), var(--fuchsia));
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.35s ease;
+      transition: transform 0.3s ease;
     }
     .project-card:hover {
       background: var(--surface-2);
       border-color: var(--border-hover);
       transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
     }
     .project-card:hover::after { transform: scaleX(1); }
     .project-card .p-head {
@@ -510,7 +455,7 @@
     .project-card .p-meta {
       font-family: var(--font-mono);
       font-size: 0.76rem;
-      color: var(--violet-400);
+      color: var(--accent);
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -530,6 +475,8 @@
     }
     .skill-block {
       background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.5rem;
@@ -543,15 +490,15 @@
       font-family: var(--font-display);
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--violet-200);
+      color: var(--text);
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       padding-bottom: 0.75rem;
-      border-bottom: 1px dashed rgba(167, 139, 250, 0.15);
+      border-bottom: 1px solid var(--border);
     }
-    .skill-block h3 i { color: var(--violet-400); }
+    .skill-block h3 i { color: var(--accent); }
 
     /* ─── About ─── */
     .about-strip {
@@ -559,14 +506,16 @@
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
       padding: 1.75rem;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(217, 70, 239, 0.04));
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
     }
     .about-item h4 {
       font-family: var(--font-display);
       font-size: 0.9rem;
-      color: var(--violet-300);
+      color: var(--accent);
       margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
@@ -602,10 +551,11 @@
     }
     .social-btn {
       width: 42px; height: 42px;
-      border-radius: 11px;
+      border-radius: 10px;
       background: var(--surface);
+      backdrop-filter: blur(8px);
       border: 1px solid var(--border);
-      color: var(--violet-300);
+      color: var(--text-muted);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -614,11 +564,11 @@
       font-size: 1.05rem;
     }
     .social-btn:hover {
-      background: var(--violet-600);
-      color: #fff;
-      border-color: var(--violet-500);
+      background: var(--accent);
+      color: #0d1117;
+      border-color: var(--accent);
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+      box-shadow: 0 8px 20px rgba(88, 166, 255, 0.4);
     }
     .copyright {
       font-family: var(--font-mono);
@@ -630,7 +580,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(10, 6, 22, 0.85);
+      background: rgba(1, 4, 9, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       z-index: 1000;
@@ -641,14 +591,14 @@
     }
     .modal-overlay.active { display: flex; }
     .modal-card {
-      background: var(--surface);
+      background: var(--bg-2);
       border: 1px solid var(--border-hover);
       border-radius: var(--radius);
       max-width: 560px;
       width: 100%;
       padding: 2rem;
       position: relative;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
       animation: modalIn 0.25s ease;
     }
     @keyframes modalIn {
@@ -660,19 +610,19 @@
       top: 1rem; right: 1rem;
       width: 34px; height: 34px;
       border-radius: 50%;
-      background: rgba(167, 139, 250, 0.08);
+      background: var(--surface-2);
       border: 1px solid var(--border);
       color: var(--text-muted);
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: none;
+      cursor: pointer;
       transition: var(--transition);
     }
     .modal-close:hover {
-      background: var(--violet-600);
-      color: #fff;
-      border-color: var(--violet-500);
+      background: var(--accent);
+      color: #0d1117;
+      border-color: var(--accent);
     }
     .modal-head {
       display: flex;
@@ -682,13 +632,13 @@
     }
     .modal-icon {
       width: 48px; height: 48px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(217, 70, 239, 0.12));
-      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(88, 166, 255, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--violet-300);
+      color: var(--accent);
       font-size: 1.3rem;
       flex-shrink: 0;
     }
@@ -702,7 +652,7 @@
     .modal-sub {
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      color: var(--violet-400);
+      color: var(--accent);
       margin-top: 0.15rem;
     }
     .modal-body {
@@ -716,7 +666,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 0.85rem;
       padding: 1.1rem;
-      background: rgba(15, 10, 31, 0.6);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
     }
@@ -730,7 +680,7 @@
     .spec-val {
       font-family: var(--font-mono);
       font-size: 0.82rem;
-      color: var(--violet-200);
+      color: var(--text);
       font-weight: 500;
     }
 
@@ -751,23 +701,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Custom Logic Gate Cursor (AND gate shape) -->
-  <div class="cursor-gate" id="cursorGate">
-    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-      <!-- AND gate body -->
-      <path d="M 6 8 H 20 A 12 12 0 0 1 20 32 H 6 Z" />
-      <!-- Input lines -->
-      <line x1="0" y1="14" x2="6" y2="14" />
-      <line x1="0" y1="26" x2="6" y2="26" />
-      <!-- Output line -->
-      <line x1="32" y1="20" x2="40" y2="20" />
-    </svg>
-  </div>
-  <div class="cursor-dot" id="cursorDot"></div>
-
-  <!-- Circuit background overlay -->
-  <div class="circuit-bg"></div>
 
   <nav>
     <div class="nav-inner">
@@ -1254,35 +1187,6 @@
   </div>
 
   <script>
-    /* ─── Logic Gate Cursor ─── */
-    const gate = document.getElementById('cursorGate');
-    const dot = document.getElementById('cursorDot');
-    let mouseX = 0, mouseY = 0;
-    let gateX = 0, gateY = 0;
-
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      dot.style.left = mouseX + 'px';
-      dot.style.top = mouseY + 'px';
-    });
-
-    function animateGate() {
-      gateX += (mouseX - gateX) * 0.22;
-      gateY += (mouseY - gateY) * 0.22;
-      gate.style.left = gateX + 'px';
-      gate.style.top = gateY + 'px';
-      requestAnimationFrame(animateGate);
-    }
-    animateGate();
-
-    const hoverTargets = document.querySelectorAll('a, button, .timeline-item, .project-card, .skill-block, .tag, .social-btn, .modal-close');
-    hoverTargets.forEach(el => {
-      el.addEventListener('mouseenter', () => gate.classList.add('hover'));
-      el.addEventListener('mouseleave', () => gate.classList.remove('hover'));
-    });
-
-    /* ─── Modal Data ─── */
     const data = {
       ieee: { icon: 'fas fa-book', title: 'IEEE Published Research Paper', sub: 'IEEE Xplore · 2025', body: 'A Review of Gesture-Based Wireless Pen Interfaces for Human-Computer Interaction: Sensors, Algorithms, and Applications.', specs: [['Title','Gesture-Based Wireless Pen Interfaces'],['Platform','IEEE Xplore'],['Domain','HCI'],['Status','Published (2025)']] },
       pen: { icon: 'fas fa-pen-nib', title: 'Gesture-Based Wireless Pen Interface', sub: 'Granted Utility Patent', body: 'Utility patent for a wireless pen interface enabling gesture-based human-computer interaction through spatial motion tracking.', specs: [['Type','Utility Patent'],['App No.','459423-001'],['Date','19/05/2025'],['Status','Granted']] },
